@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Future Tech | Intelligent Security Systems</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+@property --a{syntax:'<color>';inherits:true;initial-value:#5b6b8c}
+:root{--bg:#04060b;--ink:#e9f1ff;--mute:#8793ab;--line:#141c2e;--cy:#19e6ff;--d:'Space Grotesk',sans-serif;--m:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;overflow-x:hidden}
+section,footer{scroll-margin-top:70px}
+.mono{font:500 11px var(--m);letter-spacing:.18em;color:var(--mute)}
+.grad{background:linear-gradient(90deg,#19e6ff,#7c5cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.boot{position:fixed;inset:0;z-index:100;background:#04060b;display:grid;place-items:center;text-align:center;animation:bo .7s 1.7s forwards}
+.boot .bar{width:220px;height:2px;background:#16203a;margin:18px auto}
+.boot .bar i{display:block;height:100%;width:0;background:var(--cy);box-shadow:0 0 12px var(--cy);animation:ld 1.6s ease-out forwards}
+nav{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:20px 5vw;transition:.4s}
+nav.sc{background:rgba(4,6,11,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:14px 5vw;border-bottom:1px solid var(--line)}
+.logo{font:700 18px var(--d);letter-spacing:.28em}
+.logo i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--cy);box-shadow:0 0 14px var(--cy);margin-right:10px;animation:blink 2s infinite}
+.links a{color:var(--mute);text-decoration:none;margin:0 16px;font-size:13px;letter-spacing:.08em;transition:.3s}
+.links a:hover{color:var(--cy)}
+.cartbtn{background:transparent;color:var(--ink);border:1px solid #2a3552;padding:9px 18px;cursor:pointer;font:500 12px var(--m);letter-spacing:.14em;transition:.3s}
+.cartbtn:hover{border-color:var(--cy);box-shadow:0 0 22px rgba(25,230,255,.3)}
+.cartbtn span{background:var(--cy);color:#001018;padding:1px 7px;margin-left:8px}
+.btn{display:inline-block;text-decoration:none;background:var(--cy);color:#001018;border:0;padding:14px 26px;font:500 13px var(--m);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.3s;margin-right:10px;box-shadow:0 0 28px rgba(25,230,255,.35)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 0 44px rgba(25,230,255,.6)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid #33405f;box-shadow:none}
+.btn.sm{padding:9px 14px;font-size:11px;margin:0}
+.btn.full{width:100%;margin:0}
+#stage{height:520vh;position:relative}
+.pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;--cx:70%;--cy:48%;--a:#5b6b8c;transition:--a .7s;background:radial-gradient(ellipse at 70% 40%,#0b1226,#04060b 70%)}
+.pin[data-s="1"]{--a:#19e6ff}
+.pin[data-s="2"]{--a:#ff3b5c}
+.pin[data-s="3"]{--a:#19ffc6}
+.pin .mono{color:var(--a)}
+.floor{position:absolute;left:-50%;right:-50%;bottom:0;height:55%;background:linear-gradient(transparent,rgba(25,230,255,.07)),repeating-linear-gradient(90deg,rgba(25,230,255,.2) 0 1px,transparent 1px 70px),repeating-linear-gradient(0deg,rgba(25,230,255,.2) 0 1px,transparent 1px 70px);transform:perspective(500px) rotateX(62deg);transform-origin:bottom;animation:grid 2.5s linear infinite;-webkit-mask-image:linear-gradient(transparent,#000 75%);mask-image:linear-gradient(transparent,#000 75%)}
+.glow{position:absolute;left:var(--cx);top:var(--cy);width:90vh;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,var(--a),transparent 65%);filter:blur(30px);opacity:.06}
+.radar{position:absolute;left:var(--cx);top:var(--cy);width:min(130vh,170vw);aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 78%,var(--a));-webkit-mask-image:radial-gradient(circle,transparent 18%,#000 19%,transparent 68%);mask-image:radial-gradient(circle,transparent 18%,#000 19%,transparent 68%);opacity:0;transition:opacity 1s;animation:spin 4.5s linear infinite}
+.pin:not([data-s="0"]) .radar{opacity:.25}
+.beam{position:absolute;left:0;top:0;height:140px;transform-origin:0 50%;z-index:2;opacity:0;transition:opacity .6s;background:linear-gradient(90deg,var(--a),transparent);clip-path:polygon(0 50%,100% 0,100% 100%)}
+.pin[data-s="2"] .beam,.pin[data-s="3"] .beam{opacity:.4}
+.cam{position:absolute;left:var(--cx);top:var(--cy);width:min(62vh,46vw);aspect-ratio:1;translate:-50% -50%;z-index:3;filter:drop-shadow(0 30px 60px rgba(0,0,0,.75))}
+.camsvg{width:100%;height:100%;display:block;overflow:visible}
+.hudring{position:absolute;left:-20%;top:-20%;width:140%;height:140%;pointer-events:none}
+.hr,.hr2,.tk{stroke:var(--a)}
+.hr{stroke-width:1;opacity:.5}
+.hr2{stroke-width:2;opacity:.35}
+.tk{stroke-width:1.5;opacity:.6}
+.led{fill:#18213a;transition:fill .3s,filter .3s}
+.led.on{fill:var(--a);filter:drop-shadow(0 0 6px var(--a))}
+.led.stby{fill:#ff3b3b;animation:blink 1.4s infinite}
+.irs{stroke:var(--a);opacity:.6}
+.br{--s:16px;background:linear-gradient(var(--a),var(--a)) 0 0/var(--s) 2px,linear-gradient(var(--a),var(--a)) 0 0/2px var(--s),linear-gradient(var(--a),var(--a)) 100% 0/var(--s) 2px,linear-gradient(var(--a),var(--a)) 100% 0/2px var(--s),linear-gradient(var(--a),var(--a)) 0 100%/var(--s) 2px,linear-gradient(var(--a),var(--a)) 0 100%/2px var(--s),linear-gradient(var(--a),var(--a)) 100% 100%/var(--s) 2px,linear-gradient(var(--a),var(--a)) 100% 100%/2px var(--s);background-repeat:no-repeat}
+.target{position:absolute;left:0;top:0;width:clamp(70px,9vw,120px);height:clamp(110px,15vw,190px);opacity:0;z-index:4;pointer-events:none;will-change:transform}
+.target .bx{position:absolute;inset:0;transition:transform .6s}
+.pin[data-s="2"] .target .bx{animation:lockp 1s infinite}
+.pin[data-s="3"] .target .bx{transform:scale(.92)}
+.target svg{position:absolute;inset:14% 18%;width:64%;height:72%;fill:var(--a);fill-opacity:.15;stroke:var(--a);stroke-width:1.5}
+.tl{position:absolute;left:0;top:-24px;font:500 10px var(--m);letter-spacing:.14em;color:var(--a);white-space:nowrap}
+.hud{position:absolute;left:calc(5vw + 6px);top:100px;z-index:6;font:500 11px/1.9 var(--m);color:var(--mute);letter-spacing:.1em}
+.hud b{color:var(--ink);font-weight:500}
+.rec i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#555;margin-right:8px}
+.pin:not([data-s="0"]) .rec i{background:#ff3b5c;animation:blink 1s infinite}
+.copy{position:absolute;left:5vw;bottom:13vh;width:min(520px,90vw);z-index:6;display:grid}
+.panel{grid-area:1/1;opacity:0;transform:translateY(24px);filter:blur(6px);transition:.7s;pointer-events:none}
+.panel.on{opacity:1;transform:none;filter:none;pointer-events:auto}
+.panel h1{font:700 clamp(36px,5.6vw,76px)/1.02 var(--d);letter-spacing:-.03em;margin:14px 0 16px}
+.panel h1 em{font-style:normal;color:var(--a)}
+.panel p{color:var(--mute);line-height:1.7;max-width:440px}
+.panel .btns{margin-top:22px}
+.rail{position:absolute;right:calc(3vw + 16px);top:50%;translate:0 -50%;z-index:6;display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+.rail div{display:flex;align-items:center;gap:10px;font:500 10px var(--m);letter-spacing:.16em;color:var(--mute)}
+.rail span{opacity:0;transition:.4s}
+.rail i{width:3px;height:34px;background:#1a2338;transition:.4s}
+.rail div.on i{background:var(--a);box-shadow:0 0 10px var(--a)}
+.rail div.cur span{opacity:1;color:var(--a)}
+.snap{position:absolute;right:5vw;bottom:11vh;width:230px;background:rgba(8,12,22,.85);border:1px solid var(--a);padding:10px;z-index:6;opacity:0;transform:translateY(30px) scale(.95);transition:.6s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.snap.show{opacity:1;transform:none}
+.snap .im{height:110px;background:radial-gradient(circle at 50% 40%,#16233f,#05080f);display:grid;place-items:center;margin-bottom:8px}
+.snap .im svg{height:80px;fill:var(--a);fill-opacity:.15;stroke:var(--a);stroke-width:1.5}
+.snap .mono{font-size:10px;line-height:1.7}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:8}
+.flash.go{animation:fl .7s}
+.scan{position:absolute;inset:0;z-index:7;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px)}
+.frame{--s:30px;position:absolute;inset:78px 3vw 5vh;z-index:7;pointer-events:none}
+.hint{position:absolute;left:50%;bottom:3.5vh;translate:-50% 0;z-index:6;font:500 11px var(--m);letter-spacing:.3em;color:var(--mute);text-align:center;transition:opacity .3s}
+.hint:after{content:"";display:block;width:1px;height:34px;margin:10px auto 0;background:linear-gradient(var(--cy),transparent);animation:drop 1.6s infinite}
+.marq{overflow:hidden;border-block:1px solid var(--line);padding:18px 0;font:500 12px var(--m);color:var(--mute);letter-spacing:.3em;background:#05080f}
+.marq div{display:flex;gap:50px;width:max-content;animation:slide 40s linear infinite;white-space:nowrap}
+.sec{padding:100px 5vw}
+.kicker{color:var(--cy);margin-bottom:14px}
+h2{font:700 clamp(30px,4.6vw,54px)/1.05 var(--d);letter-spacing:-.03em;margin-bottom:34px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px}
+.tabs button{background:transparent;border:1px solid var(--line);color:var(--mute);padding:9px 18px;cursor:pointer;font:500 11px var(--m);letter-spacing:.14em;text-transform:uppercase;transition:.3s}
+.tabs button.on,.tabs button:hover{border-color:var(--cy);color:var(--cy);box-shadow:0 0 16px rgba(25,230,255,.2)}
+.grid,.feat{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.feat{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.rv{opacity:0;transform:translateY(40px);filter:blur(8px);transition:opacity .9s var(--d,0s),transform .9s var(--d,0s),filter .9s var(--d,0s)}
+.rv.in{opacity:1;transform:none;filter:none}
+.card{position:relative;overflow:hidden;background:linear-gradient(160deg,#0b1122,#070a14);border:1px solid var(--line);padding:18px;transition:opacity .9s var(--d,0s),transform .9s var(--d,0s),filter .9s var(--d,0s),border-color .3s,box-shadow .3s}
+.card:before{content:"";position:absolute;inset:0;background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(25,230,255,.13),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover{border-color:rgba(25,230,255,.5);box-shadow:0 0 36px rgba(25,230,255,.1)}
+.card:hover:before{opacity:1}
+.card .top{display:flex;justify-content:space-between;margin-bottom:12px}
+.stock{color:#19ffc6}
+.stock i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#19ffc6;margin-right:6px;animation:blink 1.6s infinite}
+.ill{position:relative;overflow:hidden;height:140px;display:grid;place-items:center;margin-bottom:14px;background:radial-gradient(circle at 50% 50%,rgba(25,230,255,.1),transparent 70%),#060913;border:1px solid var(--line)}
+.ill svg{width:118px;fill:none;stroke:var(--cy);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(25,230,255,.7))}
+.ill:after{content:"";position:absolute;left:0;right:0;top:-10%;height:2px;background:linear-gradient(90deg,transparent,var(--cy),transparent);opacity:0}
+.card:hover .ill:after{opacity:1;animation:sweep 1.3s linear infinite}
+.card small{color:var(--mute);font:500 10px var(--m);letter-spacing:.2em;text-transform:uppercase}
+.card h3{font:500 17px var(--d);margin:6px 0 8px}
+.spec{color:var(--mute);font-size:13px;line-height:1.6;margin-bottom:16px;min-height:42px}
+.pr{display:flex;justify-content:space-between;align-items:center}
+.pr b{font:700 20px var(--d)}
+.card p{color:var(--mute);font-size:14px;line-height:1.7}
+.viz{height:120px;margin-bottom:18px;position:relative;overflow:hidden;border:1px solid var(--line);background:#070b15}
+.v1{background:repeating-linear-gradient(90deg,rgba(25,230,255,.12) 0 1px,transparent 1px 20px),repeating-linear-gradient(0deg,rgba(25,230,255,.12) 0 1px,transparent 1px 20px),#070b15}
+.v1:after{content:"";position:absolute;left:0;right:0;height:30px;background:linear-gradient(transparent,rgba(25,230,255,.35),transparent);animation:sw 2.4s linear infinite}
+.v2 i{position:absolute;left:50%;top:50%;width:20px;height:20px;border:1px solid var(--cy);border-radius:50%;translate:-50% -50%;animation:ping 2.4s infinite}
+.v2 i:nth-child(2){animation-delay:.8s}
+.v2 i:nth-child(3){animation-delay:1.6s}
+.v3{display:flex;align-items:flex-end;gap:5px;padding:14px}
+.v3 i{flex:1;background:linear-gradient(var(--cy),transparent);animation:eq 1.4s ease-in-out infinite alternate}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:30px;padding:70px 5vw;border-block:1px solid var(--line);background:#05080f;text-align:center}
+.stats b{display:block;font:700 clamp(34px,5vw,56px) var(--d);color:var(--cy);text-shadow:0 0 30px rgba(25,230,255,.4)}
+.cta{text-align:center}
+.cta h2{max-width:760px;margin:0 auto 28px}
+footer{text-align:center;padding:50px 5vw;border-top:1px solid var(--line);color:var(--mute);font-size:13px;line-height:2.1}
+.shade{position:fixed;inset:0;background:rgba(0,0,0,.65);opacity:0;pointer-events:none;transition:.4s;z-index:40}
+.shade.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(410px,100%);background:#070a14;border-left:1px solid var(--cy);z-index:50;transform:translateX(105%);transition:transform .5s cubic-bezier(.7,0,.2,1);display:flex;flex-direction:column;padding:22px}
+.drawer.open{transform:none}
+.dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.dh h3{font:700 18px var(--d);letter-spacing:.1em}
+.x{background:none;border:0;color:var(--ink);font-size:28px;cursor:pointer}
+.items{flex:1;overflow:auto}
+.row{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.row small{color:var(--mute)}
+.qty{margin-left:auto;display:flex;gap:8px;align-items:center}
+.qty button{width:28px;height:28px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
+.empty{color:var(--mute);padding:20px 0}
+.foot{border-top:1px solid var(--line);padding-top:16px}
+.tot{display:flex;justify-content:space-between;margin-bottom:14px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);display:none;place-items:center;z-index:90;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:20px}
+.modal.open{display:grid}
+.box{background:#070a14;border:1px solid var(--cy);padding:36px;text-align:center;max-width:390px;box-shadow:0 0 70px rgba(25,230,255,.25);animation:pop .4s}
+.box h3{font:700 22px var(--d);margin-bottom:10px}
+.box p{color:var(--mute);margin-bottom:24px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120px);background:#070a14;border:1px solid var(--cy);padding:12px 20px;z-index:80;transition:.4s;box-shadow:0 0 28px rgba(25,230,255,.25);font:500 12px var(--m);letter-spacing:.06em}
+.toast.show{transform:translate(-50%,0)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{50%{opacity:.25}}
+@keyframes grid{to{background-position:0 0,0 0,0 70px}}
+@keyframes slide{to{transform:translateX(-50%)}}
+@keyframes bo{to{opacity:0;visibility:hidden}}
+@keyframes ld{to{width:100%}}
+@keyframes fl{0%{opacity:.85}100%{opacity:0}}
+@keyframes lockp{50%{transform:scale(1.1)}}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes sweep{to{top:110%}}
+@keyframes sw{from{top:-30px}to{top:120px}}
+@keyframes ping{to{width:200px;height:200px;opacity:0}}
+@keyframes eq{from{height:15%}to{height:90%}}
+@keyframes pop{from{transform:scale(.85);opacity:0}}
+@media(max-width:800px){.links{display:none}.pin{--cx:50%;--cy:34%}.cam{width:min(44vh,74vw)}.copy{bottom:9vh}.panel p{font-size:14px}.snap,.rail span{display:none}.hud{top:84px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="boot"><div><div class="mono">FUTURE TECH // SECURITY GRID</div><div class="bar"><i></i></div><div class="mono">INITIALIZING SENSORS...</div></div></div>
+<nav id="nav">
+<div class="logo"><i></i>FUTURE TECH</div>
+<div class="links"><a href="#products">PRODUCTS</a><a href="#tech">TECHNOLOGY</a><a href="#contact">CONTACT</a></div>
+<button class="cartbtn" onclick="openCart()">CART<span id="count">0</span></button>
+</nav>
+<section id="stage">
+<div class="pin" data-s="0">
+<div class="floor"></div>
+<div class="glow" id="glow"></div>
+<div class="radar"></div>
+<div class="beam" id="beam"></div>
+<div class="cam" id="cam">
+<svg class="camsvg" viewBox="-200 -200 400 400">
+<defs>
+<radialGradient id="hous" cx="35%" cy="30%"><stop offset="0" stop-color="#26324d"/><stop offset="1" stop-color="#0a0e17"/></radialGradient>
+<radialGradient id="glass" cx="40%" cy="35%"><stop offset="0" stop-color="#16213a"/><stop offset="1" stop-color="#03050a"/></radialGradient>
+<radialGradient id="pup"><stop offset="0" stop-color="#fff"/><stop offset=".25" style="stop-color:var(--a)"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<linearGradient id="shine" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".25"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></linearGradient>
+</defs>
+<circle r="178" fill="url(#hous)" stroke="#2b3a5c" stroke-width="2"/>
+<circle r="162" fill="none" stroke="#0b1020" stroke-width="2"/>
+<circle r="136" fill="none" stroke="#0b1020" stroke-width="2"/>
+<g id="leds"></g>
+<circle r="126" fill="#05080f" stroke="#1d2a47" stroke-width="3"/>
+<circle r="112" fill="url(#glass)" class="irs" stroke-width="1.5"/>
+<g id="lens">
+<circle r="70" fill="#02040a" stroke="#1c2b4a" stroke-width="3"/>
+<circle r="52" fill="none" class="irs" stroke-width="1.5"/>
+<circle r="38" fill="none" class="irs" stroke-width="1.5" stroke-dasharray="6 5"/>
+<circle id="pupil" r="4" fill="url(#pup)"/>
+<circle r="6" cx="-22" cy="-24" fill="#fff" opacity=".35"/>
+</g>
+<ellipse cx="-40" cy="-62" rx="80" ry="38" fill="url(#shine)" transform="rotate(-25)"/>
+</svg>
+<svg class="hudring" id="hring" viewBox="-240 -240 480 480">
+<circle r="225" fill="none" stroke-dasharray="2 10" class="hr"/>
+<circle r="205" fill="none" stroke-dasharray="60 20 10 20" class="hr2"/>
+<g id="ticks"></g>
+</svg>
+</div>
+<div class="target" id="target">
+<div class="tl" id="tl">MOTION DETECTED</div>
+<div class="bx br"></div>
+<svg viewBox="0 0 60 100"><circle cx="30" cy="22" r="12"/><path d="M8 100c0-26 10-44 22-44s22 18 22 44z"/></svg>
+</div>
+<div class="hud">
+<div class="rec"><i></i>REC <b id="ts">00:00:00</b></div>
+<div>CAM-01 / ZONE A</div>
+<div>PAN <b id="pan">0.0</b>&deg;</div>
+<div>STATUS <b id="st">STANDBY</b></div>
+</div>
+<div class="rail"><div><span>STANDBY</span><i></i></div><div><span>ACTIVATED</span><i></i></div><div><span>DETECTION</span><i></i></div><div><span>CAPTURE</span><i></i></div></div>
+<div class="copy">
+<div class="panel on"><div class="mono">01 / STANDBY</div><h1>Security that <em>never blinks.</em></h1><p>Future Tech builds CCTV, smart street lighting, sensor doorbells, and digital locks for people who can't afford blind spots.</p><div class="btns"><a href="#products" class="btn">Shop products</a></div></div>
+<div class="panel"><div class="mono">02 / ACTIVATED</div><h1>Sensors <em>online.</em></h1><p>Every lens, light, and lock wakes the instant you need it. Keep scrolling to watch it work.</p></div>
+<div class="panel"><div class="mono">03 / DETECTION</div><h1>Motion <em>detected.</em></h1><p>Smart sensors trigger the camera in milliseconds. It locks on and follows the target on its own.</p></div>
+<div class="panel"><div class="mono">04 / CAPTURE</div><h1>Evidence <em>secured.</em></h1><p>Crisp 4K stills and footage, saved the moment it matters.</p><div class="btns"><a href="#products" class="btn">Shop the range</a></div></div>
+</div>
+<div class="snap" id="snap"><div class="im"><svg viewBox="0 0 60 100"><circle cx="30" cy="22" r="12"/><path d="M8 100c0-26 10-44 22-44s22 18 22 44z"/></svg></div><div class="mono">SNAPSHOT SAVED<br>FT-0427.RAW<br>3840 x 2160</div></div>
+<div class="flash" id="flash"></div>
+<div class="scan"></div>
+<div class="frame br"></div>
+<div class="hint" id="hint">SCROLL TO ACTIVATE</div>
+</div>
+</section>
+<div class="marq"><div id="mq"></div></div>
+<section class="sec" id="products">
+<div class="kicker mono">// 02 - PRODUCTS</div>
+<h2 class="rv">The <span class="grad">arsenal.</span></h2>
+<div class="tabs" id="tabs"></div>
+<div class="grid" id="grid"></div>
+</section>
+<section class="sec" id="tech">
+<div class="kicker mono">// 03 - TECHNOLOGY</div>
+<h2 class="rv">Engineered to <span class="grad">see first.</span></h2>
+<div class="feat">
+<div class="card rv"><div class="viz v1"></div><h3>Night vision</h3><p>Infrared imaging that stays sharp in total darkness, up to 40 meters out.</p></div>
+<div class="card rv" style="--d:.1s"><div class="viz v2"><i></i><i></i><i></i></div><h3>Smart sensing</h3><p>Motion, door, and glass-break sensors trigger cameras and lights instantly.</p></div>
+<div class="card rv" style="--d:.2s"><div class="viz v3" id="eq"></div><h3>Always connected</h3><p>Live alerts and remote viewing on your phone, wherever you are.</p></div>
+</div>
+</section>
+<section class="stats">
+<div><b data-n="24" data-s="/7">0</b><span class="mono">MONITORING</span></div>
+<div><b data-n="50" data-s="K+">0</b><span class="mono">DEVICES INSTALLED</span></div>
+<div><b data-n="4" data-s="K">0</b><span class="mono">ULTRA HD CAPTURE</span></div>
+<div><b data-n="99.9" data-d="1" data-s="%">0</b><span class="mono">UPTIME</span></div>
+</section>
+<section class="sec cta">
+<div class="kicker mono">// 04 - GET STARTED</div>
+<h2 class="rv">Ready to secure <span class="grad">what matters?</span></h2>
+<a href="#products" class="btn">Browse products</a>
+</section>
+<footer id="contact">
+<div class="logo">FUTURE TECH</div>
+sales@futuretech.example<br>Prototype preview
+</footer>
+<div class="shade" id="shade" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer">
+<div class="dh"><h3>YOUR CART</h3><button class="x" onclick="closeCart()">×</button></div>
+<div class="items" id="items"></div>
+<div class="foot">
+<div class="tot"><span>Subtotal</span><b id="total">$0.00</b></div>
+<button class="btn full" onclick="pay()">Proceed to payment</button>
+</div>
+</aside>
+<div class="modal" id="modal"><div class="box"><h3>Payment coming soon</h3><p>This feature will be added soon.</p><button class="btn" onclick="closeModal()">Got it</button></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),lerp=(a,b,t)=>a+(b-a)*t;
+const P=[
+{n:'AuroraCam 4K Pro',c:'Cameras',p:189,i:'cam',s:'FT-CAM-01',d:'4K UHD · IR night vision 40m · IP67'},
+{n:'NightEye PTZ 360',c:'Cameras',p:259,i:'ptz',s:'FT-CAM-02',d:'360° pan and tilt · 30x zoom · AI tracking'},
+{n:'SolarBeam Sensor Street Light',c:'Lighting',p:149,i:'light',s:'FT-LGT-01',d:'Solar powered · Motion sensor · 12h runtime'},
+{n:'PulseLamp Smart Pole Light',c:'Lighting',p:219,i:'light',s:'FT-LGT-02',d:'Smart dimming · Wi-Fi control · IP66'},
+{n:'RingSight Camera Doorbell',c:'Doorbells',p:129,i:'bell',s:'FT-DBL-01',d:'2K video · Two-way audio · Night vision'},
+{n:'EchoBell Sensor Doorbell',c:'Doorbells',p:89,i:'sbell',s:'FT-DBL-02',d:'Motion alerts · Wireless chime · Weatherproof'},
+{n:'VaultKey Digital Lock',c:'Locks',p:199,i:'lock',s:'FT-LCK-01',d:'Keypad entry · App unlock · Auto-lock'},
+{n:'BioLock Fingerprint Lock',c:'Locks',p:249,i:'bio',s:'FT-LCK-02',d:'Biometric · 0.3s unlock · Anti-tamper'},
+{n:'SentinelDoor Sensor Kit',c:'Sensors',p:59,i:'sensor',s:'FT-SNS-01',d:'Door and window · Wireless · 2-year battery'}
+];
+const I={
+cam:'<rect x="18" y="22" width="62" height="30" rx="8"/><circle cx="49" cy="37" r="9"/><path d="M80 37h16M49 52v14M36 66h26"/>',
+ptz:'<path d="M30 14h60M60 14v10"/><circle cx="60" cy="46" r="20"/><circle cx="60" cy="46" r="7"/><path d="M42 80h36"/>',
+light:'<path d="M38 82V32c0-10 8-16 20-16h32"/><rect x="76" y="12" width="28" height="10" rx="4"/><path d="M82 28l-6 18M90 28v20M98 28l6 18"/>',
+bell:'<rect x="40" y="8" width="40" height="74" rx="10"/><circle cx="60" cy="28" r="9"/><circle cx="60" cy="28" r="3"/><circle cx="60" cy="62" r="6"/>',
+sbell:'<rect x="40" y="8" width="40" height="74" rx="10"/><circle cx="60" cy="56" r="6"/><path d="M30 30a22 22 0 0 0 0 22M18 24a34 34 0 0 0 0 34M90 30a22 22 0 0 1 0 22M102 24a34 34 0 0 1 0 34"/>',
+lock:'<rect x="35" y="12" width="50" height="66" rx="8"/><circle cx="50" cy="32" r="3"/><circle cx="60" cy="32" r="3"/><circle cx="70" cy="32" r="3"/><circle cx="50" cy="44" r="3"/><circle cx="60" cy="44" r="3"/><circle cx="70" cy="44" r="3"/><path d="M50 62h20"/>',
+bio:'<rect x="35" y="12" width="50" height="66" rx="8"/><circle cx="60" cy="40" r="14"/><circle cx="60" cy="40" r="6"/><path d="M48 64h24"/>',
+sensor:'<rect x="14" y="34" width="34" height="14" rx="4"/><rect x="72" y="34" width="34" height="14" rx="4"/><path d="M54 41h12" stroke-dasharray="3 4"/>'
+};
+const ns='http://www.w3.org/2000/svg';
+const leds=[];
+for(let i=0;i<24;i++){
+const a=i/24*Math.PI*2-Math.PI/2,c=document.createElementNS(ns,'circle');
+c.setAttribute('cx',Math.cos(a)*148);c.setAttribute('cy',Math.sin(a)*148);c.setAttribute('r',5);c.setAttribute('class','led');
+$('#leds').append(c);leds.push(c);
+}
+for(let i=0;i<72;i++){
+const a=i/72*Math.PI*2,l=i%6?8:16,e=document.createElementNS(ns,'line');
+e.setAttribute('x1',Math.cos(a)*218);e.setAttribute('y1',Math.sin(a)*218);
+e.setAttribute('x2',Math.cos(a)*(218+l));e.setAttribute('y2',Math.sin(a)*(218+l));e.setAttribute('class','tk');
+$('#ticks').append(e);
+}
+const stage=$('#stage'),pin=$('.pin'),cam=$('#cam'),lens=$('#lens'),pupil=$('#pupil'),hring=$('#hring'),beam=$('#beam'),tgt=$('#target'),glow=$('#glow');
+let cp=0,lx=0,ly=0,step=-1,lastN=-1,lastSec='';
+function setStep(s){
+const up=s>step;step=s;pin.dataset.s=s;
+$$('.panel').forEach((e,i)=>e.classList.toggle('on',i==s));
+$$('.rail div').forEach((e,i)=>{e.classList.toggle('on',i<=s);e.classList.toggle('cur',i==s)});
+$('#st').textContent=['STANDBY','ONLINE','MOTION DETECTED','CAPTURED'][s];
+$('#tl').textContent=s==3?'TARGET LOCKED':'MOTION DETECTED';
+leds[0].classList.toggle('stby',s==0);
+$('#snap').classList.toggle('show',s==3);
+if(s==3&&up){const f=$('#flash');f.classList.remove('go');void f.offsetWidth;f.classList.add('go')}
+}
+function frame(t){
+requestAnimationFrame(frame);
+const r=stage.getBoundingClientRect(),W=innerWidth,H=innerHeight;
+$('#nav').classList.toggle('sc',scrollY>40);
+if(r.bottom<-300)return;
+const p=clamp(-r.top/(stage.offsetHeight-H));
+cp+=(p-cp)*.09;
+const s=cp<.22?0:cp<.46?1:cp<.74?2:3;
+if(s!==step)setStep(s);
+const mob=W<800,cx=(mob?.5:.7)*W,cy=(mob?.34:.48)*H;
+const tp=clamp((cp-.44)/.42);
+const tx=lerp(mob?W*.18:W*.48,mob?W*.82:W*.76,tp),ty=(mob?.55:.77)*H+Math.sin(cp*70)*4;
+tgt.style.transform=`translate(${tx}px,${ty}px) translate(-50%,-50%)`;
+tgt.style.opacity=clamp((cp-.44)/.04)*(1-clamp((cp-.95)/.05));
+let gx,gy;
+if(cp<.44){gx=Math.sin(cp*16+t*.0006)*.55;gy=Math.sin(cp*10+t*.0004)*.3}
+else{gx=clamp((tx-cx)/(W*.4),-1,1);gy=clamp((ty-cy)/(H*.4),-1,1)}
+lx+=(gx-lx)*.08;ly+=(gy-ly)*.08;
+lens.setAttribute('transform',`translate(${lx*30} ${ly*22})`);
+cam.style.transform=`perspective(900px) rotateY(${lx*16}deg) rotateX(${-ly*10}deg)`;
+const o=clamp((cp-.08)/.2);
+pupil.setAttribute('r',4+22*o*o*(3-2*o));
+const n=Math.floor(clamp((cp-.1)/.18)*24);
+if(n!==lastN){lastN=n;leds.forEach((l,i)=>l.classList.toggle('on',i<n))}
+hring.style.transform=`rotate(${cp*420}deg)`;
+glow.style.opacity=.06+.3*clamp((cp-.1)/.3);
+const dx=tx-cx,dy=ty-cy;
+beam.style.width=Math.max(0,Math.hypot(dx,dy)-90)+'px';
+beam.style.transform=`translate(${cx}px,${cy-70}px) rotate(${Math.atan2(dy,dx)}rad)`;
+$('#hint').style.opacity=1-clamp(cp*30);
+$('#pan').textContent=(lx*45).toFixed(1);
+const sec=new Date().toLocaleTimeString('en-GB');
+if(sec!==lastSec){lastSec=sec;$('#ts').textContent=sec}
+}
+requestAnimationFrame(frame);
+function scramble(el){
+const t=el.dataset.t||el.textContent,ch='01ABCDEF#<>/';el.dataset.t=t;let f=0;
+const id=setInterval(()=>{el.textContent=[...t].map((c,i)=>c==' '?' ':i<f/2?c:ch[Math.random()*ch.length|0]).join('');if(++f>t.length*2){el.textContent=t;clearInterval(id)}},30);
+}
+function count(e){
+const n=+e.dataset.n,d=+e.dataset.d||0,s=e.dataset.s||'',t0=performance.now();
+(function f(t){const k=clamp((t-t0)/1600);e.textContent=(n*(1-Math.pow(1-k,3))).toFixed(d)+s;if(k<1)requestAnimationFrame(f)})(t0);
+}
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+if(!e.isIntersecting)return;
+const el=e.target;el.classList.add('in');
+if(el.classList.contains('kicker'))scramble(el);
+if(el.dataset.n)count(el);
+io.unobserve(el);
+}),{threshold:.2});
+const watch=()=>$$('.rv:not(.in),.kicker:not(.in),[data-n]:not(.in)').forEach(e=>io.observe(e));
+document.addEventListener('mousemove',e=>{
+const c=e.target.closest&&e.target.closest('.card');
+if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}
+});
+let cart={},filter='All',tt;
+const money=v=>'$'+v.toFixed(2);
+function render(){
+$('#grid').innerHTML=P.map((x,k)=>[x,k]).filter(([x])=>filter=='All'||x.c==filter).map(([x,k],n)=>`<div class="card rv" style="--d:${(n%3)*.08}s"><div class="top mono"><span>${x.s}</span><span class="stock"><i></i>IN STOCK</span></div><div class="ill"><svg viewBox="0 0 120 90">${I[x.i]}</svg></div><small>${x.c}</small><h3>${x.n}</h3><p class="spec">${x.d}</p><div class="pr"><b>${money(x.p)}</b><button class="btn sm" onclick="add(${k})">Add to cart</button></div></div>`).join('');
+watch();
+}
+['All',...new Set(P.map(x=>x.c))].forEach(c=>{
+const b=document.createElement('button');
+b.textContent=c;if(c=='All')b.className='on';
+b.onclick=()=>{filter=c;$$('#tabs button').forEach(x=>x.className='');b.className='on';render()};
+$('#tabs').append(b);
+});
+function drawCart(){
+const ids=Object.keys(cart);
+$('#items').innerHTML=ids.length?ids.map(k=>`<div class="row"><div><b>${P[k].n}</b><br><small>${money(P[k].p)}</small></div><div class="qty"><button onclick="chg(${k},-1)">−</button><span>${cart[k]}</span><button onclick="chg(${k},1)">+</button></div></div>`).join(''):'<p class="empty">Your cart is empty.</p>';
+$('#total').textContent=money(ids.reduce((s,k)=>s+P[k].p*cart[k],0));
+$('#count').textContent=ids.reduce((s,k)=>s+cart[k],0);
+}
+function add(k){cart[k]=(cart[k]||0)+1;drawCart();toast(P[k].n+' added to cart')}
+function chg(k,d){cart[k]+=d;if(cart[k]<1)delete cart[k];drawCart()}
+function openCart(){$('#drawer').classList.add('open');$('#shade').classList.add('open')}
+function closeCart(){$('#drawer').classList.remove('open');$('#shade').classList.remove('open')}
+function pay(){if(!Object.keys(cart).length)return toast('Add a product first');closeCart();$('#modal').classList.add('open')}
+function closeModal(){$('#modal').classList.remove('open')}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1800)}
+$('#mq').innerHTML=('<span>CCTV CAMERAS</span><span>/</span><span>SMART STREET LIGHTS</span><span>/</span><span>CAMERA DOORBELLS</span><span>/</span><span>DIGITAL DOOR LOCKS</span><span>/</span><span>DOOR SENSORS</span><span>/</span>').repeat(4);
+$('#eq').innerHTML=Array.from({length:14},(_,i)=>`<i style="animation-delay:${-i*.17}s"></i>`).join('');
+render();drawCart();watch();
+</script>
+</body>
+</html>
